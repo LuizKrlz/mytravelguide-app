@@ -1,7 +1,7 @@
 {
   "name": "mytravels",
   "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
+  "main": "index.ts",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -9,13 +9,30 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-navigation/bottom-tabs": "^6.5.12",
+    "@react-navigation/native": "^6.1.10",
+    "@react-navigation/native-stack": "^6.9.18",
+    "@shopify/restyle": "^2.4.2",
+    "date-fns": "^3.3.1",
+    "date-fns-tz": "^2.0.0",
     "expo": "~50.0.6",
+    "expo-font": "~11.10.2",
+    "expo-linear-gradient": "~12.7.1",
+    "expo-splash-screen": "~0.26.4",
     "expo-status-bar": "~1.11.1",
     "react": "18.2.0",
-    "react-native": "0.73.4"
+    "react-native": "0.73.4",
+    "react-native-onboard": "^2.6.0",
+    "react-native-reanimated": "^3.7.0",
+    "react-native-safe-area-context": "4.8.2",
+    "react-native-screens": "~3.29.0",
+    "react-native-svg": "^14.1.0",
+    "react-native-tabs": "^1.0.9",
+    "react-native-timeline-flatlist": "^0.8.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@faker-js/faker": "^8.4.1",
     "@types/react": "~18.2.45",
     "typescript": "^5.1.3"
   },
