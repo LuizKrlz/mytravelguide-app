@@ -1,13 +1,8 @@
-import {
-  Text,
-  View,
-  ImageBackground,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { Image } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import theme from "../styles/theme";
-import { ButtonPrimary } from "../components/atoms";
+import { Button, Box } from "../components/atoms";
+import { Typography } from "../components/atoms/Typography";
 
 function WelcomeScreen({ navigation }) {
   const insets = useSafeAreaInsets();
@@ -15,16 +10,14 @@ function WelcomeScreen({ navigation }) {
   const handleGoToLogin = () => navigation.navigate("Login");
 
   return (
-    <View
-      style={{
-        flex: 1,
-        paddingTop: insets.top,
-        justifyContent: "flex-end",
-        backgroundColor: theme.fullWhite,
-        position: "relative",
-      }}
+    <Box
+      flex={1}
+      justifyContent="flex-end"
+      bg="white"
+      position="relative"
+      style={{ paddingTop: insets.top }}
     >
-      <View style={{ flex: 1, padding: 16 }}>
+      <Box flex={1} p="m">
         <Image
           width={105}
           height={40}
@@ -33,44 +26,31 @@ function WelcomeScreen({ navigation }) {
           }}
         />
 
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            flexWrap: "wrap",
-            marginTop: 40,
-          }}
-        >
-          <Text
-            style={{ color: theme.fullBlack, fontSize: 28, fontWeight: "bold" }}
-          >
-            Enjoy your moments with
-          </Text>
-          <Text
-            style={{
-              color: theme.brandAccent,
-              fontSize: 28,
-              fontWeight: "bold",
-            }}
-          >
-            travelm
-          </Text>
-        </View>
+        <Box mt="xl">
+          <Typography variant="header">Enjoy your moments</Typography>
+          <Box alignItems="center" flexDirection="row" gap="s">
+            <Typography variant="header" style={{ color: theme.colors.black }}>
+              with
+            </Typography>
+            <Typography variant="header" color="primary">
+              travelm
+            </Typography>
+          </Box>
+        </Box>
 
-        <Text style={{ color: theme.mediumBlack, fontSize: 16, marginTop: 20 }}>
+        <Typography color="secondary" variant="paragraph-one-regular" mt="l">
           Register all places, take a lot of photos and keep your memories in
           your palm hand.
-        </Text>
+        </Typography>
 
-        <ButtonPrimary
+        <Button
           onPress={handleGoToLogin}
           style={{
-            maxWidth: 150,
+            marginTop: 40,
           }}
-        >
-          Explore
-        </ButtonPrimary>
-      </View>
+          title="Explore"
+        />
+      </Box>
       <Image
         height={500}
         style={{ zIndex: -1 }}
@@ -79,7 +59,7 @@ function WelcomeScreen({ navigation }) {
             .uri,
         }}
       />
-    </View>
+    </Box>
   );
 }
 

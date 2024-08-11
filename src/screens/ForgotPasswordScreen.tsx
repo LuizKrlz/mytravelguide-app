@@ -1,15 +1,12 @@
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { StyleSheet } from "react-native";
 import theme from "../styles/theme";
 import IonicIcons from "@expo/vector-icons/Ionicons";
-import { Link } from "../components/atoms";
+import { Box, Link } from "../components/atoms";
 import { ExternalLayout } from "../components/layouts";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Typography } from "../components/atoms/Typography";
+import { Input } from "../components/atoms/Input";
+import { ButtonIcon } from "../components/atoms/ButtonIcon";
 
 function ForgotPasswordScreen({ navigation }) {
   const insets = useSafeAreaInsets();
@@ -19,22 +16,34 @@ function ForgotPasswordScreen({ navigation }) {
 
   return (
     <ExternalLayout handleBack={handleBack}>
-      <Text style={styles.title}>Reset a new Password</Text>
+      <Typography mt="xl" variant="header">
+        Reset a new Password
+      </Typography>
 
-      <View style={styles.containerInput}>
-        <TextInput placeholder="Email" style={styles.input} />
-      </View>
+      <Box mt="xl">
+        <Input
+          placeholder="Email"
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+      </Box>
 
-      <View style={styles.containerSignin}>
-        <Text style={styles.signInTitle}>Send Code</Text>
-        <TouchableOpacity onPress={() => {}} style={styles.signInButton}>
+      <Box
+        flex={1}
+        flexDirection="row"
+        mt="xl"
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <Typography variant="header">Send Code</Typography>
+        <ButtonIcon onPress={() => {}}>
           <IonicIcons name="arrow-forward" size={30} color={"white"} />
-        </TouchableOpacity>
-      </View>
+        </ButtonIcon>
+      </Box>
 
-      <View style={[styles.containerLinks, { paddingBottom: insets.bottom }]}>
+      <Box style={{ paddingBottom: insets.bottom + 10 }}>
         <Link onPress={handleGoToSignIn}>Sign in</Link>
-      </View>
+      </Box>
     </ExternalLayout>
   );
 }

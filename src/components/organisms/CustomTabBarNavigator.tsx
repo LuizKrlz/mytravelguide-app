@@ -7,32 +7,40 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import theme from "../../styles/theme";
+import { Theme } from "../../styles/theme";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Icon } from "../atoms";
+import { Box, Icon } from "../atoms";
+import { useTheme } from "@shopify/restyle";
+import { Typography } from "../atoms/Typography";
 
-const returnIcon = (index: number, isActive: boolean) => {
+const returnIcon = (index: number, isActive: boolean, theme: Theme) => {
   switch (index) {
     case 1:
       return (
-        <Icon.Explore color={isActive ? theme.fullWhite : theme.mediumBlack} />
+        <Icon.Explore
+          color={isActive ? theme.colors.white : theme.colors.secondary}
+        />
       );
 
     case 2:
       return (
         <Icon.Notification
-          color={isActive ? theme.fullWhite : theme.mediumBlack}
+          color={isActive ? theme.colors.white : theme.colors.secondary}
         />
       );
 
     case 3:
       return (
-        <Icon.Favorite color={isActive ? theme.fullWhite : theme.mediumBlack} />
+        <Icon.Favorite
+          color={isActive ? theme.colors.white : theme.colors.secondary}
+        />
       );
 
     default:
       return (
-        <Icon.Home color={isActive ? theme.fullWhite : theme.mediumBlack} />
+        <Icon.Home
+          color={isActive ? theme.colors.white : theme.colors.secondary}
+        />
       );
   }
 };
@@ -41,18 +49,18 @@ export function CustomTabBarNavigator({
   state,
   navigation,
 }: BottomTabBarProps) {
+  const theme = useTheme<Theme>();
   const insets = useSafeAreaInsets();
 
   return (
-    <View
+    <Box
+      flexDirection="row"
+      alignItems="center"
+      justifyContent="space-between"
+      px="xl"
+      bg="background"
       style={{
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
         paddingBottom: insets.bottom,
-        paddingHorizontal: 24,
-        paddingVertical: 15,
-        backgroundColor: theme.fullWhite,
       }}
     >
       {state.routes.map((route, index) => {
@@ -61,46 +69,38 @@ export function CustomTabBarNavigator({
           <TouchableOpacity
             style={
               isActive
-                ? styles.active
+                ? {
+                    backgroundColor: theme.colors.primary,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    padding: theme.spacing.s,
+                    borderRadius: 10,
+                    gap: theme.spacing.s,
+                  }
                 : { height: 46, justifyContent: "center" }
             }
             onPress={() =>
               route.name ? navigation.navigate(route.name) : undefined
             }
           >
-            {returnIcon(index, isActive)}
+            {returnIcon(index, isActive, theme)}
 
             {isActive && (
-              <Text
-                style={[
-                  {
-                    marginLeft: 5,
-                    color: theme.fullBlack,
-                    fontSize: 13,
-                    fontFamily: "Nunito-Bold",
-                  },
-                  isActive && { color: theme.fullWhite },
-                ]}
+              <Typography
+                style={{
+                  fontFamily: "Nunito-Bold",
+                  fontSize: 13,
+                  color: "white",
+                }}
               >
                 {state.routeNames[index] === "HomeTab"
                   ? "Home"
                   : state.routeNames[index]}
-              </Text>
+              </Typography>
             )}
           </TouchableOpacity>
         );
       })}
-    </View>
+    </Box>
   );
 }
-
-const styles = StyleSheet.create({
-  active: {
-    height: 36,
-    borderRadius: 12,
-    backgroundColor: theme.brandAccent,
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 15,
-  },
-});

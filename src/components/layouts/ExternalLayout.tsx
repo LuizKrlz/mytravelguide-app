@@ -1,29 +1,25 @@
 import { TouchableOpacity, View, Image } from "react-native";
-import theme from "../../styles/theme";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import IonicIcons from "@expo/vector-icons/Ionicons";
+import { Box } from "../atoms";
+import { useTheme } from "@shopify/restyle";
 
 export function ExternalLayout({ handleBack, children }) {
+  const theme = useTheme();
   const insets = useSafeAreaInsets();
 
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: theme.fullWhite,
-        position: "relative",
-      }}
-    >
-      <View
+    <Box flex={1} bg="background" position="relative">
+      <Box
+        position="absolute"
+        right={50}
+        top={-90}
+        bg="blue"
+        width={56}
+        height={250}
+        borderRadius={29}
+        opacity={0.1}
         style={{
-          position: "absolute",
-          right: 50,
-          top: -90,
-          backgroundColor: "#009BFF",
-          width: 56,
-          height: 250,
-          borderRadius: 29,
-          opacity: 0.1,
           transform: [
             {
               rotate: "30deg",
@@ -32,16 +28,16 @@ export function ExternalLayout({ handleBack, children }) {
         }}
       />
 
-      <View
+      <Box
+        position="absolute"
+        right={10}
+        top={0}
+        bg="greenDark"
+        width={56}
+        height={250}
+        borderRadius={29}
+        opacity={0.1}
         style={{
-          position: "absolute",
-          right: 10,
-          top: 0,
-          backgroundColor: "#97B38A",
-          width: 56,
-          height: 250,
-          borderRadius: 29,
-          opacity: 0.1,
           transform: [
             {
               rotate: "30deg",
@@ -54,7 +50,11 @@ export function ExternalLayout({ handleBack, children }) {
         onPress={handleBack}
         style={{ paddingTop: insets.top, marginLeft: 16 }}
       >
-        <IonicIcons name="arrow-back" size={30} color={theme.mediumBlack} />
+        <IonicIcons
+          name="arrow-back"
+          size={30}
+          color={theme.colors.secondary}
+        />
       </TouchableOpacity>
 
       <Image
@@ -66,7 +66,9 @@ export function ExternalLayout({ handleBack, children }) {
             .uri,
         }}
       />
-      <View style={{ paddingHorizontal: 16, flex: 1 }}>{children}</View>
-    </View>
+      <Box flex={1} px="m">
+        {children}
+      </Box>
+    </Box>
   );
 }

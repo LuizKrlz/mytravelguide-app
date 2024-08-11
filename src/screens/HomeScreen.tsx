@@ -2,6 +2,7 @@ import {
   FlatList,
   Image,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TextInput,
@@ -15,82 +16,34 @@ import { faker } from "@faker-js/faker";
 import MIcons from "@expo/vector-icons/MaterialIcons";
 
 import theme from "../styles/theme";
+import { useTheme } from "@shopify/restyle";
+import { Box } from "../components/atoms";
+import { Typography } from "../components/atoms/Typography";
+import { Ionicons } from "@expo/vector-icons";
+import { Countries } from "../components/organisms/Countries";
+import { PopularCategories } from "../components/organisms/PopularCategories";
 
 function HomeScreen({ navigation }) {
   const insets = useSafeAreaInsets();
-
-  const cities = [
-    {
-      id: faker.string.uuid(),
-      uri: faker.image.urlLoremFlickr({
-        width: 180,
-        height: 220,
-        category: "paris,eiffel",
-      }),
-    },
-    {
-      id: faker.string.uuid(),
-      uri: faker.image.urlLoremFlickr({
-        width: 180,
-        height: 220,
-        category: "india,tajmahal",
-      }),
-    },
-    {
-      id: faker.string.uuid(),
-      uri: faker.image.urlLoremFlickr({
-        width: 180,
-        height: 220,
-        category: "ireland,dublin",
-      }),
-    },
-  ];
-
-  const categories = [
-    {
-      id: 1,
-      title: "Trips",
-      imageUri: Image.resolveAssetSource(
-        require("../../assets/categories/plane.png")
-      ).uri,
-    },
-    {
-      id: 2,
-      title: "Hotel",
-      imageUri: Image.resolveAssetSource(
-        require("../../assets/categories/hotel.png")
-      ).uri,
-    },
-    {
-      id: 3,
-      title: "Transport",
-      imageUri: Image.resolveAssetSource(
-        require("../../assets/categories/transport.png")
-      ).uri,
-    },
-    {
-      id: 4,
-      title: "Events",
-      imageUri: Image.resolveAssetSource(
-        require("../../assets/categories/events.png")
-      ).uri,
-    },
-  ];
-
-  const handleGoToDetailsCity = () => navigation.navigate("City");
+  const theme = useTheme();
 
   return (
-    <ScrollView style={[{ paddingTop: insets.top + 20 }, styles.page]}>
-      <View style={styles.header}>
+    <ScrollView
+      style={{
+        paddingTop: insets.top + 20,
+        backgroundColor: theme.colors.background,
+        flex: 1,
+      }}
+    >
+      <StatusBar />
+      <Box
+        flexDirection="row"
+        px="m"
+        alignItems="center"
+        justifyContent="space-between"
+      >
         <MaterialIcons name="sort-variant" size={30} />
-        <View
-          style={{
-            shadowColor: "#FF287F",
-            shadowOffset: { width: 0, height: 3 },
-            shadowOpacity: 0.7,
-            shadowRadius: 5,
-          }}
-        >
+        <Box>
           <Image
             width={40}
             height={40}
@@ -102,141 +55,54 @@ function HomeScreen({ navigation }) {
                 .uri,
             }}
           />
-        </View>
-      </View>
+        </Box>
+      </Box>
 
-      <View style={{ paddingHorizontal: 16, marginTop: 30 }}>
-        <Text style={styles.title}>Discover</Text>
-        <Text style={styles.subtitle}>Explore the best places in world</Text>
-      </View>
+      <Box px="m" mt="l">
+        <Typography variant="header">Discover</Typography>
+        <Typography variant="paragraph-one-regular" color="secondary" mt="s">
+          Explore the best places in world
+        </Typography>
+      </Box>
 
-      <View style={styles.containerSearch}>
+      <Box
+        height={50}
+        bg="lightSecondary"
+        mx="m"
+        borderRadius={24}
+        my="l"
+        flexDirection="row"
+        alignItems="center"
+        justifyContent="space-between"
+        px="s"
+      >
         <TextInput
-          style={styles.containerSearchInput}
+          readOnly
           placeholder="Search your trip"
+          placeholderTextColor={theme.colors.secondary}
+          style={{
+            flex: 1,
+            paddingHorizontal: 8,
+            color: theme.colors.secondary,
+            fontSize: 15,
+          }}
         />
 
-        <TouchableOpacity style={styles.containerSearchButton}>
-          <MIcons name="search" color="white" size={20} />
-        </TouchableOpacity>
-      </View>
+        <Box
+          bg="primary"
+          alignItems="center"
+          justifyContent="center"
+          borderRadius={35}
+          width={36}
+          height={36}
+        >
+          <Ionicons name="search" color="white" size={15} />
+        </Box>
+      </Box>
 
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <Text
-          style={{
-            color: theme.brandAccent,
-            fontSize: 15,
-            marginRight: 10,
-            marginLeft: 16,
-            fontFamily: "Nunito-SemiBold",
-          }}
-        >
-          All
-        </Text>
-        <Text
-          style={{
-            color: theme.mediumBlack,
-            fontSize: 15,
-            marginRight: 10,
-            fontFamily: "Nunito-SemiBold",
-          }}
-        >
-          America
-        </Text>
-        <Text
-          style={{
-            color: theme.mediumBlack,
-            fontSize: 15,
-            marginRight: 10,
-            fontFamily: "Nunito-SemiBold",
-          }}
-        >
-          Europe
-        </Text>
-        <Text
-          style={{
-            color: theme.mediumBlack,
-            fontSize: 15,
-            marginRight: 10,
-            fontFamily: "Nunito-SemiBold",
-          }}
-        >
-          Oceania
-        </Text>
-      </View>
-      <FlatList
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        data={cities}
-        style={{ maxHeight: 260 }}
-        contentContainerStyle={{
-          paddingLeft: 16,
-          paddingTop: 20,
-        }}
-        keyExtractor={(item) => `${item?.id}`}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={handleGoToDetailsCity}>
-            <Image
-              resizeMode="contain"
-              style={{
-                width: 180,
-                height: 220,
-                opacity: 0.9,
-                marginRight: 20,
-                borderRadius: 24,
-              }}
-              source={{
-                uri: item.uri,
-              }}
-            />
-          </TouchableOpacity>
-        )}
-      />
+      <Countries />
 
-      <View>
-        <Text
-          style={{
-            fontSize: 17,
-            fontFamily: "Nunito-Bold",
-            color: theme.fullBlack,
-            marginLeft: 16,
-          }}
-        >
-          Popular Categories
-        </Text>
-
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            paddingHorizontal: 16,
-            marginTop: 20,
-          }}
-        >
-          {categories.map((item) => (
-            <View key={item.id} style={{ alignItems: "center" }}>
-              <Image
-                source={{ uri: item.imageUri }}
-                resizeMode="cover"
-                borderRadius={24}
-                width={48}
-                height={48}
-              />
-              <Text
-                style={{
-                  marginTop: 10,
-                  fontSize: 14,
-                  fontFamily: "Nunito-SemiBold",
-                  color: theme.mediumBlack,
-                }}
-              >
-                {item.title}
-              </Text>
-            </View>
-          ))}
-        </View>
-      </View>
+      <PopularCategories />
     </ScrollView>
   );
 }

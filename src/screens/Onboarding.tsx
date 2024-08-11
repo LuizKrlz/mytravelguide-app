@@ -63,17 +63,17 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "Nunito-Bold",
     fontSize: 28,
-    color: theme.fullBlack,
+    color: theme.colors.black,
     lineHeight: 40,
   },
   subtitle: {
     fontFamily: "Nunito-Regular",
     fontSize: 16,
-    color: theme.mediumBlack,
+    color: theme.colors.secondary,
     paddingHorizontal: 16,
   },
   primaryButton: {
-    backgroundColor: theme.brandAccent,
+    backgroundColor: theme.colors.primary,
     width: 65,
     height: 65,
     borderRadius: 32,
