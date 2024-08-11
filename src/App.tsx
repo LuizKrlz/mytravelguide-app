@@ -19,6 +19,8 @@ import NotificationScreen from "./screens/NotificationsScreen";
 import FavoritesScreen from "./screens/FavoritesScreen";
 import CityDetailsScreen from "./screens/CityDetailsScreen";
 import CityTourScreen from "./screens/CityTourScreen";
+import { ThemeProvider } from "@shopify/restyle";
+import theme from "./styles/theme";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -90,23 +92,25 @@ export default function App() {
 
   return (
     <SafeAreaProvider onLayout={onLayoutRootView}>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Start" component={Onboarding} />
-          <Stack.Screen name="Welcome" component={WelcomeScreen} />
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Register" component={RegisterScreen} />
-          <Stack.Screen
-            name="ForgotPassword"
-            component={ForgotPasswordScreen}
-          />
+      <ThemeProvider theme={theme}>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Start" component={Onboarding} />
+            <Stack.Screen name="Welcome" component={WelcomeScreen} />
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen
+              name="ForgotPassword"
+              component={ForgotPasswordScreen}
+            />
 
-          <Stack.Screen name="Home" component={TabRoutes} />
+            <Stack.Screen name="Home" component={TabRoutes} />
 
-          <Stack.Screen name="City" component={CityDetailsScreen} />
-          <Stack.Screen name="CityTour" component={CityTourScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+            <Stack.Screen name="City" component={CityDetailsScreen} />
+            <Stack.Screen name="CityTour" component={CityTourScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </ThemeProvider>
     </SafeAreaProvider>
   );
 }
