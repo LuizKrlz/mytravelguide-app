@@ -1,5 +1,6 @@
 import { Link } from "./Link";
 import * as Icon from "./icons";
-import { ButtonPrimary } from "./buttons/ButtonPrimary";
+import { Button } from "./Button";
+import { Box } from "./Box";
 
-export { ButtonPrimary, Icon, Link };
+export { Icon, Link, Box, Button };
