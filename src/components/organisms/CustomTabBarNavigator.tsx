@@ -1,4 +1,4 @@
-import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import {
   Image,
   StyleSheet,
@@ -7,11 +7,12 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Theme } from "../../styles/theme";
+import type { Theme } from "../../styles/theme";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Box, Icon } from "../atoms";
 import { useTheme } from "@shopify/restyle";
 import { Typography } from "../atoms/Typography";
+import { CustomTabBarButton } from "./CustomTabBarButton";
 
 const returnIcon = (index: number, isActive: boolean, theme: Theme) => {
   switch (index) {
@@ -58,47 +59,47 @@ export function CustomTabBarNavigator({
       alignItems="center"
       justifyContent="space-between"
       px="xl"
+      py="s"
       bg="background"
       style={{
         paddingBottom: insets.bottom,
       }}
     >
       {state.routes.map((route, index) => {
-        const isActive = index === state.index;
+        const title =
+          state.routeNames[index] === "HomeTab"
+            ? "Home"
+            : state.routeNames[index];
+
         return (
-          <TouchableOpacity
-            style={
-              isActive
-                ? {
-                    backgroundColor: theme.colors.primary,
-                    flexDirection: "row",
-                    alignItems: "center",
-                    padding: theme.spacing.s,
-                    borderRadius: 10,
-                    gap: theme.spacing.s,
-                  }
-                : { height: 46, justifyContent: "center" }
-            }
+          <CustomTabBarButton
+            key={route.key}
+            isActive={index === state.index}
             onPress={() =>
               route.name ? navigation.navigate(route.name) : undefined
             }
+            size={title.length > 10 ? "m" : "s"}
           >
-            {returnIcon(index, isActive, theme)}
+            {({ isActive }) => (
+              <>
+                {returnIcon(index, isActive, theme)}
 
-            {isActive && (
-              <Typography
-                style={{
-                  fontFamily: "Nunito-Bold",
-                  fontSize: 13,
-                  color: "white",
-                }}
-              >
-                {state.routeNames[index] === "HomeTab"
-                  ? "Home"
-                  : state.routeNames[index]}
-              </Typography>
+                {isActive && (
+                  <Typography
+                    style={{
+                      fontFamily: "Nunito-Bold",
+                      fontSize: 16,
+                      color: "white",
+                    }}
+                  >
+                    {state.routeNames[index] === "HomeTab"
+                      ? "Home"
+                      : state.routeNames[index]}
+                  </Typography>
+                )}
+              </>
             )}
-          </TouchableOpacity>
+          </CustomTabBarButton>
         );
       })}
     </Box>
