@@ -1,31 +1,18 @@
-import {
-  FlatList,
-  Image,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, ScrollView, StatusBar, TextInput } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import MaterialIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { faker } from "@faker-js/faker";
 
-import MIcons from "@expo/vector-icons/MaterialIcons";
-
-import theme from "../styles/theme";
+import { Theme } from "../styles/theme";
 import { useTheme } from "@shopify/restyle";
-import { Box } from "../components/atoms";
-import { Typography } from "../components/atoms/Typography";
+import { Box, Typography } from "../components/atoms";
+
 import { Ionicons } from "@expo/vector-icons";
 import { Countries } from "../components/organisms/Countries";
 import { PopularCategories } from "../components/organisms/PopularCategories";
 
 function HomeScreen({ navigation }) {
   const insets = useSafeAreaInsets();
-  const theme = useTheme();
+  const theme = useTheme<Theme>();
 
   return (
     <ScrollView
@@ -106,53 +93,5 @@ function HomeScreen({ navigation }) {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  page: {
-    flex: 1,
-    backgroundColor: theme.fullWhite,
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 16,
-  },
-  title: {
-    fontFamily: "Nunito-Bold",
-    color: theme.fullBlack,
-    fontSize: 28,
-  },
-  subtitle: {
-    fontFamily: "Nunito-Regular",
-    fontSize: 16,
-    color: theme.mediumBlack,
-  },
-  containerSearch: {
-    marginVertical: 20,
-    position: "relative",
-    marginHorizontal: 16,
-    height: 48,
-    backgroundColor: "#F4F4F5",
-    borderRadius: 40,
-  },
-  containerSearchInput: {
-    height: 48,
-    borderRadius: 20,
-    paddingLeft: 20,
-    color: theme.mediumBlack,
-  },
-  containerSearchButton: {
-    width: 36,
-    height: 36,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: theme.brandAccent,
-    borderRadius: 18,
-    position: "absolute",
-    right: 8,
-    top: 6,
-  },
-});
 
 export default HomeScreen;
