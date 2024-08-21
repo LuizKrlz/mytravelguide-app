@@ -10,6 +10,7 @@ const palette = {
   blue: "#009BFF",
   greenDark: "#97B38A",
   lightGray: "#F4F4F5",
+  orange: "#FF9900",
 };
 
 const theme = createTheme({
@@ -22,6 +23,7 @@ const theme = createTheme({
     white: palette.fullWhite,
     blue: palette.blue,
     greenDark: palette.greenDark,
+    orange: palette.orange,
   },
   spacing: {
     s: 8,
